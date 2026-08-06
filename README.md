@@ -8,18 +8,20 @@ A Node.js Telegram bot that connects fake offline (cracked) players to Minecraft
 ### Main Menu
 Send `/start` to see this:
 
-![Main Menu](/images/telegram-menu.png)
+![Main Menu](/Images/telegram-menu.png)
 
 ### Adding a Bot
 Press **Add Bot** and enter details:
 
-![Add Bot Flow](/images/add-bot-demo.png)
+![Add Bot Flow](/Images/add-bot-demo.png)
 
 ### Chat Forwarding
 Minecraft chat appears in your Telegram group:
 
-![Chat Forwarding](/images/chat-forward.png)
+![Chat Forwarding](/Images/chat-forward.png)
+
 ---
+
 
 ## Features
 
