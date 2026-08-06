@@ -39,7 +39,7 @@ Minecraft chat appears in your Telegram group:
 
 | Requirement | Version |
 |---|---|
-| Node.js | ≥ 18 |
+| Node.js | ≥ 22 |
 | npm | ≥ 9 |
 
 ---
