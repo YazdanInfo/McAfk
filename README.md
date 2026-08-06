@@ -32,6 +32,7 @@ you can go to the releases page and download the source code and unzip it or clo
 ```shell
 git clone https://github.com/yazdaninfo/mcafk
 ```
+and change the name of ".env.example" to ".env" and add your token 
 
 ### 2. Install dependencies
 
