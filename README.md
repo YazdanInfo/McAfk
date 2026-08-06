@@ -27,7 +27,7 @@ A Node.js Telegram bot that connects fake offline (cracked) players to Minecraft
 
 ## Setup
 
-### 1. downlaid the files 
+### 1. download the files 
 index.js
 package.json
 
