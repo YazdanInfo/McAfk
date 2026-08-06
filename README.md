@@ -181,8 +181,11 @@ MIT — see [LICENSE](LICENSE).
 ---
 
 ## Warning 
+**for educational purposes only**
 
 **don't use this on servers you don't own**
+
+**risk of ban in services if break the TOS check before using**
 
 ---
 
