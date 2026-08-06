@@ -173,17 +173,6 @@ index.js
 
 ---
 
-## Known Limitations
-
-- **No persistence** — all bot state is in-memory. Restarting the process loses registered bots and forward subscriptions. Add a JSON file or SQLite database if you need persistence across restarts.
-- **Offline auth only** — bots cannot log in to servers that enforce online mode (paid accounts).
-- **No movement** — bots connect and stay idle. They do not move, interact, or respond to in-game events.
-- **Duplicate messages** — mineflayer fires both `chat` and `message` events for player chat. Player chat is forwarded via the `chat` event; the `message` event forwards all other server messages (join/leave, system, death, etc.), which may occasionally overlap.
-
----
-
-## License
-
 MIT — see [LICENSE](LICENSE).
 — see [LICENSE](LICENSE).
 (LICENSE).
