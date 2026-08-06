@@ -1,0 +1,18 @@
+{
+  "name": "telegram-mc-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot to connect fake players to Minecraft servers",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "bun-start": "bun index.js"
+  },
+  "dependencies": {
+    "grammy": "^1.36.1",
+    "mineflayer": "^4.23.0"
+  },
+  "engines": {
+    "bun": ">=1.0",
+    "node": ">=18"
+  }
+}
