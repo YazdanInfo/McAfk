@@ -181,8 +181,8 @@ MIT — see [LICENSE](LICENSE).
 ---
 
 ##Warning 
-**this code is not associated with via plugins **
-**don't use this on servers you don't own**
+
+** don't use this on servers you don't own **
 
 ---
 
