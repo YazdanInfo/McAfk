@@ -1,4 +1,4 @@
-#🤖 McAfk, Afk minecraft player — Telegram Bot
+## 🤖 McAfk, Afk minecraft player — Telegram Bot
 
 A Node.js Telegram bot that connects fake offline (cracked) players to Minecraft servers and forwards in-game chat to Telegram group chats. Manage multiple bots from your phone with a fully inline-keyboard UI — no complicated commands needed.
 
@@ -28,8 +28,10 @@ A Node.js Telegram bot that connects fake offline (cracked) players to Minecraft
 ## Setup
 
 ### 1. download the files 
-index.js
-package.json
+you can go to the releases page and download the source code and unzip it or clone the repo
+```shell
+git clone https://github.com/yazdaninfo/mcafk
+```
 
 ### 2. Install dependencies
 
