@@ -180,9 +180,9 @@ MIT — see [LICENSE](LICENSE).
 
 ---
 
-##Warning 
+## Warning 
 
-** don't use this on servers you don't own **
+**don't use this on servers you don't own**
 
 ---
 
