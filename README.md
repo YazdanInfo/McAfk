@@ -211,13 +211,6 @@ index.js
 
 ---
 
-MIT — see [LICENSE](LICENSE).
-— see [LICENSE](LICENSE).
-(LICENSE).
-, death, etc.), which may occasionally overlap.
-
----
-
 ## Warning 
 **for educational purposes only**
 
@@ -230,5 +223,3 @@ MIT — see [LICENSE](LICENSE).
 ## License
 
 MIT — see [LICENSE](LICENSE).
-— see [LICENSE](LICENSE).
-(LICENSE).
