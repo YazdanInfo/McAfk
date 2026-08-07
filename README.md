@@ -207,7 +207,7 @@ index.js
 | Package | Purpose |
 |---|---|
 | [`grammy`](https://grammy.dev) v1 | Telegram Bot API client |
-| [`mineflayer`](https://mineflayer.prismarine.js.org) v4 | Minecraft bot client |
+| [`mineflayer`](https://mineflayer.com) v4 | Minecraft bot client |
 
 ---
 
