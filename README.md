@@ -6,7 +6,8 @@
 ![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)
 ![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)
 
---
+---
+
 ## 🤖 McAfk, Afk minecraft player — Telegram Bot
 
 A Node.js Telegram bot that connects fake offline (cracked) players to Minecraft servers and forwards in-game chat to Telegram group chats. Manage multiple bots from your phone with a fully inline-keyboard UI — no complicated commands needed.
