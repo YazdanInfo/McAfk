@@ -55,7 +55,7 @@ Minecraft chat appears in your Telegram group:
 | Requirement | Version |
 |---|---|
 | Node.js | ≥ 22 |
-| or bun  | latest |
+| or bun  | 1.0 |
 | npm | ≥ 9 |
 
 ---
@@ -72,7 +72,7 @@ and change the name of ".env.example" to ".env" and add your token
 ### 2. Install dependencies
 
 ```bash
-npm install grammy && npm install mineflayer
+npm install
 ```
 
 ### 3. Create a Telegram bot
