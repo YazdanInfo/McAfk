@@ -1,7 +1,7 @@
 {
-  "name": "telegram-mc-bot",
+  "name": "mcafk",
   "version": "1.0.0",
-  "description": "Telegram bot to connect fake players to Minecraft servers",
+  "description": "McAfk — Telegram bot to connect fake offline players to Minecraft servers",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -13,6 +13,6 @@
   },
   "engines": {
     "bun": ">=1.0",
-    "node": ">=18"
+    "node": ">=22"
   }
 }
