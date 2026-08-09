@@ -55,7 +55,7 @@ Minecraft chat appears in your Telegram group:
 | Requirement | Version |
 |---|---|
 | Node.js | ≥ 22 |
-| or bun  | 1.0 |
+| or bun  | ≥ 1.0 |
 | npm | ≥ 9 |
 
 ---
