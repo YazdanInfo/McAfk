@@ -143,7 +143,7 @@ Alex  mc.example.com 25565 1.8.9
    ```
 3. Every bot you own will now forward server chat to that group
 
-4. sometimes especially if you are using the bot on public groups the spam messages from the server could flood the group so if you are using a supergroup add a new topic for the server chat or create a new group 
+4. sometimes especially if you are using the bot on public servers the spam messages from the server could flood the group so if you are using a supergroup add a new topic for the server chat or create a new group 
 
 **Forwarding commands** (use in the group):
 
