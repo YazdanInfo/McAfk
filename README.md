@@ -4,10 +4,12 @@
 ![GitHub stars](https://img.shields.io/github/stars/yazdaninfo/mcafk?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/yazdaninfo/mcafk?style=social)
 ![GitHub issues](https://img.shields.io/github/issues/yazdaninfo/mcafk?style=social)
+![GitHub release](https://img.shields.io/github/v/release/yazdaninfo/mcafk?style=for-the-badge)
 ![Node JS](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
 ![Bun](https://img.shields.io/badge/Bun-000000?style=for-the-badge&logo=bun&logoColor=white)
 ![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)
 ![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)
+
 ---
 # McAfk — AFK Minecraft Player Bot for Telegram
 
