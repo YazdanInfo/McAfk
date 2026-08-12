@@ -1,8 +1,6 @@
 ---
 <img src="/Images/mcafk.png" alt="Project Logo" width="400" />
-
 ---
-
 ![GitHub stars](https://img.shields.io/github/stars/yazdaninfo/mcafk?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/yazdaninfo/mcafk?style=social)
 ![GitHub issues](https://img.shields.io/github/issues/yazdaninfo/mcafk?style=social)
@@ -10,43 +8,60 @@
 ![Bun](https://img.shields.io/badge/Bun-000000?style=for-the-badge&logo=bun&logoColor=white)
 ![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)
 ![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)
+---
+# McAfk — AFK Minecraft Player Bot for Telegram
+
+A Node.js Telegram bot that connects offline (cracked-auth) player bots to Minecraft servers and forwards in-game chat to Telegram groups. Manage multiple bots from your phone through a fully inline-keyboard UI — no slash commands required.
 
 ---
 
-## 🤖 McAfk, Afk minecraft player — Telegram Bot
+## Jump to ...
 
-A Node.js Telegram bot that connects fake offline (cracked) players to Minecraft servers and forwards in-game chat to Telegram group chats. Manage multiple bots from your phone with a fully inline-keyboard UI — no complicated commands needed.
+- [Telegram Interface](#telegram-interface)
+- [Features](#features)
+- [Requirements](#requirements)
+- [Setup](#setup)
+- [Controlling Commands](#controlling-commands)
+- [Usage](#usage)
+- [Via Plugin Support](#via-plugin-support)
+- [Auto-Reconnect](#auto-reconnect)
+- [Architecture](#architecture)
+- [Warning](#warning)
+- [License](#license)
 
 ---
-## 📱 **Telegram Interface**
 
-### Main Menu
-Send `/start` to see this:
+## Telegram Interface
+
+**Main Menu** — send `/start` to see the menu:
 
 ![Main Menu](/Images/telegram-menu.png)
 
-### Adding a Bot
-Press **Add Bot** and enter details:
+**Adding a Bot** — press **Add Bot** and enter the connection details:
 
 ![Add Bot Flow](/Images/add-bot-demo.png)
 
-### Chat Forwarding
-Minecraft chat appears in your Telegram group:
+**Chat Forwarding** — Minecraft chat appears in your Telegram group:
 
 ![Chat Forwarding](/Images/chat-forward.png)
 
----
+**`/walk` command** — make the bot move:
 
+![Walking](/Images/walk.gif)
+
+---
 
 ## Features
 
-- **Connect fake players** to any Minecraft server that is cracked and have via backwards (offline/cracked auth)
+- **Fake player connections** to any cracked (offline-auth) Minecraft server
 - **Multi-bot management** — add, disconnect, reconnect, and remove bots at any time
 - **ViaVersion / ViaBackwards / ViaRewind support** — connect with any client version to any server version
-- **Auto-reconnect** with exponential backoff (5 s → 10 s → 20 s → 40 s → 60 s)
-- **Chat forwarding** — pipe Minecraft server chat to Telegram group chats in real time
-- **Inline keyboard UI** — everything controlled through Telegram buttons; no slash commands needed in private chat
-- **Detailed status** — uptime, server address, version, last error per bot
+- **Auto-reconnect** with exponential backoff (5s → 10s → 20s → 40s → 60s)
+- **Chat forwarding** — pipe Minecraft server chat to Telegram groups in real time
+- **Inline keyboard UI** — everything is controlled through Telegram buttons, no slash commands needed in private chat
+- **Detailed status** — uptime, server address, version, and last error per bot
+- **In-game messaging** — send messages to Minecraft chat with `/echo`
+- **Bot movement** — move bots in all four directions with `/walk`
 
 ---
 
@@ -54,25 +69,32 @@ Minecraft chat appears in your Telegram group:
 
 | Requirement | Version |
 |---|---|
-| Node.js | ≥ 22 |
-| or bun  | ≥ 1.0 |
+| Node.js | ≥ 18 |
+| or Bun | ≥ 1.0 |
 | npm | ≥ 9 |
 
 ---
 
 ## Setup
 
-### 1. download the files 
-you can go to the releases page and download the source code and unzip it or clone the repo
+### 1. Download the files
+
+Clone the repo, or go to the [releases page](https://github.com/yazdaninfo/mcafk/releases) and download the source as a zip.
+
 ```shell
 git clone https://github.com/yazdaninfo/mcafk
 ```
-and change the name of ".env.example" to ".env" and add your token 
 
 ### 2. Install dependencies
 
 ```bash
 npm install
+```
+
+Or install manually:
+
+```shell
+npm install grammy && npm install mineflayer
 ```
 
 ### 3. Create a Telegram bot
@@ -98,10 +120,56 @@ node index.js
 ```
 
 You should see:
+
 ```
 🚀 Minecraft Bot Manager starting…
 ✅  Running as @YourBotName
 ```
+
+---
+
+## Controlling Commands
+
+### `/walk`
+
+Moves your bot in a given direction.
+
+**Usage:** `/walk [botname] [direction] [distance]`
+
+**Example:**
+```
+/walk yazdanbot forward 2
+```
+
+**Response:**
+```
+✅ Walk complete!
+🤖 Yazdanbot — walked 2.0 blocks
+```
+
+> Directions: `forward`, `back`, `left`, `right`
+> If no bot is specified, the command moves all bots.
+
+### `/echo`
+
+Sends a message to Minecraft chat.
+
+**Usage:** `/echo [botname] [message]`
+
+**Example:**
+```
+/echo yazdanbot hi guys
+```
+
+**Response:**
+```
+✅ Echo sent! → yazdanbot
+💬 hi guys
+🤖 Delivered to 1 bot(s)
+⚫ 2 offline — skipped
+```
+
+> If no bot is specified, the message is sent from all online bots.
 
 ---
 
@@ -118,7 +186,7 @@ Send `/start` to your bot to open the main menu.
 | 📡 Forwarding | Explains the chat-forwarding feature |
 | ℹ️ Help | Full usage guide |
 
-**Adding a bot** — after pressing Add Bot, send one of:
+**Adding a bot** — after pressing **Add Bot**, send one of:
 
 ```
 name  ip  port  [version]
@@ -126,6 +194,7 @@ name  ip:port   [version]
 ```
 
 Examples:
+
 ```
 Steve play.example.com 25565 1.20.4
 Alex  mc.example.com 25565 1.8.9
@@ -136,16 +205,16 @@ Alex  mc.example.com 25565 1.8.9
 
 ### Group chat — forwarding Minecraft chat
 
-1. Add your bot to a Telegram group
+1. Add your bot to a Telegram group.
 2. In the group, send:
    ```
    /forward @yourusername
    ```
-3. Every bot you own will now forward server chat to that group
+3. Every bot you own will now forward server chat to that group.
 
-4. sometimes especially if you are using the bot on public servers the spam messages from the server could flood the group so if you are using a supergroup add a new topic for the server chat or create a new group 
+> On public servers, server spam can flood the group quickly. If you're using a supergroup, create a dedicated topic for server chat, or use a separate group.
 
-**Forwarding commands** (use in the group):
+**Forwarding commands** (used in the group):
 
 | Command | Description |
 |---|---|
@@ -154,6 +223,7 @@ Alex  mc.example.com 25565 1.8.9
 | `/forwards` | List active subscriptions in this chat |
 
 Forwarded messages look like:
+
 ```
 [Steve @ mc.example.com:25565] Player123: hello everyone
 [Steve @ mc.example.com:25565] Player123 joined the game
@@ -163,7 +233,7 @@ Forwarded messages look like:
 
 ## Via Plugin Support
 
-Server-side Via plugins handle all protocol translation automatically. You just need to specify the correct **client** version when adding a bot:
+Server-side Via plugins handle protocol translation automatically. You only need to specify the correct **client** version when adding a bot:
 
 | Plugin | Use case | Example |
 |---|---|---|
@@ -177,15 +247,15 @@ No special configuration is needed on the bot side.
 
 ## Auto-Reconnect
 
-When a bot loses connection for any reason (kick, timeout, server restart), it automatically retries:
+When a bot loses connection for any reason (kick, timeout, server restart), it automatically retries with exponential backoff:
 
 | Attempt | Wait |
 |---|---|
-| 1 | 5 s |
-| 2 | 10 s |
-| 3 | 20 s |
-| 4 | 40 s |
-| 5+ | 60 s |
+| 1 | 5s |
+| 2 | 10s |
+| 3 | 20s |
+| 4 | 40s |
+| 5+ | 60s |
 
 The counter resets on a successful connection. Pressing **Disconnect** or **Remove** in the bot manager cancels any pending reconnect immediately.
 
@@ -196,9 +266,9 @@ The counter resets on a successful connection. Pressing **Disconnect** or **Remo
 ```
 index.js
 ├── State
-│   ├── mcBots      Map<name, BotInfo>     — all registered bots
-│   ├── chatStates  Map<chatId, State>     — conversation flow per chat
-│   └── forwardMap  Map<username, Set<chatId>>  — forwarding subscriptions
+│   ├── mcBots      Map<name, BotInfo>          — all registered bots
+│   ├── chatStates  Map<chatId, State>           — conversation flow per chat
+│   └── forwardMap  Map<username, Set<chatId>>   — forwarding subscriptions
 ├── spawnBot()      — creates mineflayer bot, wires events, handles reconnect
 ├── Telegram UI     — /start, /forward, /unforward, /forwards + inline callbacks
 └── Chat forwarding — strips § color codes, sends plain text to subscribed groups
@@ -213,12 +283,12 @@ index.js
 
 ---
 
-## Warning 
-**for educational purposes only**
+## Warning
 
-**don't use this on servers you don't own**
+**For educational purposes only.**
 
-**risk of ban in services if break the TOS check before using**
+- Do not use this on servers you don't own or have permission to test on.
+- Using this may violate a server's Terms of Service and risk a ban. Check the relevant TOS before using.
 
 ---
 
