@@ -139,11 +139,11 @@ You should see:
 
 Moves your bot in a given direction.
 
-**Usage:** `/walk [botname] [direction] [distance]`
+**Usage:** `/walk [direction] [distance]`
 
 **Example:**
 ```
-/walk yazdanbot forward 2
+/walk forward 2
 ```
 
 **Response:**
@@ -153,7 +153,6 @@ Moves your bot in a given direction.
 ```
 
 > Directions: `forward`, `back`, `left`, `right`
-> If no bot is specified, the command moves all bots.
 
 ### `/echo`
 
