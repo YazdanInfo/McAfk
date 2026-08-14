@@ -187,8 +187,7 @@ Send `/start` to your bot to open the main menu.
 |---|---|
 | ➕ Add Bot | Prompts you for connection details, then connects |
 | 📋 Bots | Lists all registered bots with status |
-| 📡 Forwarding | Explains the chat-forwarding feature |
-| ℹ️ Help | Full usage guide |
+| ℹ️ Help & Guide | Full usage guide |
 
 **Adding a bot** — after pressing **Add Bot**, send one of:
 
