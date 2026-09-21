@@ -32,9 +32,25 @@ const DATA_TMP = `${DATA}.tmp`;
 // STATE
 // ---------------------------------------------------------------------------
 
-const mcBots = new Map();
-const chatStates = new Map();
-const forwardMap = new Map();
+// Bounded Map to prevent unbounded memory growth (CWE-400): evicts the
+// oldest entry (FIFO) once the size cap is reached.
+const MAX_MAP_SIZE = 5000;
+class BoundedMap extends Map {
+  constructor(maxSize) {
+    super();
+    this.maxSize = maxSize;
+  }
+  set(key, value) {
+    if (!this.has(key) && this.size >= this.maxSize) {
+      this.delete(this.keys().next().value);
+    }
+    return super.set(key, value);
+  }
+}
+
+const mcBots = new BoundedMap(MAX_MAP_SIZE);
+const chatStates = new BoundedMap(MAX_MAP_SIZE);
+const forwardMap = new BoundedMap(MAX_MAP_SIZE);
 const bot = new Bot(TOKEN);
 
 let loading = false;
