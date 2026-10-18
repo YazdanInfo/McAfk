@@ -1,0 +1,46 @@
+# systemd unit for McAfk.  Install (Ubuntu 24.04: its own `nodejs` package is Node 18, below the required 22 -> use NodeSource):
+#   curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash - && sudo apt-get install -y nodejs   # then `node -v` must say v22+
+#   sudo useradd --system --home /opt/mcafk --shell /usr/sbin/nologin mcafk
+#   sudo cp -r . /opt/mcafk && cd /opt/mcafk && sudo npm install --omit=dev
+#   sudo cp .env.example /opt/mcafk/.env && sudo nano /opt/mcafk/.env      # token + ALLOWED_USER_IDS
+#   sudo chown -R mcafk:mcafk /opt/mcafk && sudo chmod 600 /opt/mcafk/.env
+#   sudo cp deploy/mcafk.service /etc/systemd/system/ && sudo systemctl daemon-reload
+#   sudo systemctl enable --now mcafk        # logs: journalctl -u mcafk -f
+[Unit]
+Description=McAfk - Telegram Minecraft AFK bot manager
+After=network-online.target
+Wants=network-online.target
+# give up only if it crashes 5 times within 5 minutes
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=mcafk
+Group=mcafk
+WorkingDirectory=/opt/mcafk
+EnvironmentFile=/opt/mcafk/.env
+ExecStart=/usr/bin/node index.js
+# index.js exits 0 on SIGTERM/SIGINT (clean stop) and 1 on a crash: only crashes are restarted.
+Restart=on-failure
+RestartSec=5
+KillSignal=SIGTERM
+# the bot flushes queued forwards (max 4 s) and saves userdata.json before exiting
+TimeoutStopSec=15
+# Sized for a 16 GB / 4 vCPU host. One manager is ONE Node thread (~one core): RAM is rarely the first limit, see README -> Sizing.
+# MemoryHigh makes the kernel reclaim/throttle first; MemoryMax is the hard stop (the unit then restarts, and the manager reports an unclean start).
+# Lower both if a Minecraft server or anything else shares this machine.
+MemoryHigh=10G
+MemoryMax=12G
+LimitNOFILE=65536
+# libuv thread pool (DNS lookups, zlib, file I/O) defaults to 4 threads; a bigger pool costs next to nothing here. NOT measured.
+# (values in /opt/mcafk/.env override Environment= lines)
+Environment=UV_THREADPOOL_SIZE=8
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/mcafk
+
+[Install]
+WantedBy=multi-user.target

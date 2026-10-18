@@ -1,0 +1,9 @@
+node_modules
+.git
+.env
+userdata.json*
+.keysecret
+Images
+deploy
+test
+.github

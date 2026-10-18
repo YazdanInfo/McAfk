@@ -9,6 +9,8 @@ node_modules/
 # Runtime data created by the bot
 userdata.json
 userdata.json.tmp
+userdata.json.bak*
+userdata.json.corrupt-*
 
 # Logs
 *.log
@@ -26,3 +28,5 @@ Thumbs.db
 *.swp
 *.swo
 *\~
+
+.keysecret

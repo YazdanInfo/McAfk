@@ -1,0 +1,42 @@
+# systemd TEMPLATE unit: several independent McAfk managers on one machine, to use more than one core.
+# A manager is one Node thread, and one Telegram bot token can be polled by only one process, so every instance needs ITS OWN
+# bot token (a second bot from @BotFather) and its own data directory. Nothing is shared between instances, including the join queue.
+# NOT tested here (no systemd in the build environment): check `systemctl status mcafk@two` after the first start.
+#   sudo cp /opt/mcafk/.env.example /opt/mcafk/two.env && sudo nano /opt/mcafk/two.env   # its OWN TELEGRAM_BOT_TOKEN + ALLOWED_USER_IDS
+#   sudo chown mcafk:mcafk /opt/mcafk/two.env && sudo chmod 600 /opt/mcafk/two.env
+#   sudo cp deploy/mcafk@.service /etc/systemd/system/ && sudo systemctl daemon-reload && sudo systemctl enable --now mcafk@two
+# Data of instance "two" lives in /var/lib/mcafk/two (created by systemd). logs: journalctl -u mcafk@two -f
+[Unit]
+Description=McAfk - Telegram Minecraft AFK bot manager (%i)
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=mcafk
+Group=mcafk
+WorkingDirectory=/opt/mcafk
+EnvironmentFile=/opt/mcafk/%i.env
+Environment=DATA_DIR=/var/lib/mcafk/%i
+Environment=UV_THREADPOOL_SIZE=8
+StateDirectory=mcafk/%i
+StateDirectoryMode=0700
+ExecStart=/usr/bin/node index.js
+Restart=on-failure
+RestartSec=5
+KillSignal=SIGTERM
+TimeoutStopSec=15
+# per instance; with two or three instances keep the sum below the machine (16 GB host: leave ~4 GB for the OS)
+MemoryHigh=4G
+MemoryMax=5G
+LimitNOFILE=65536
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/mcafk/%i
+
+[Install]
+WantedBy=multi-user.target

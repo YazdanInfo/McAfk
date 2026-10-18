@@ -1,0 +1,13 @@
+services:
+  mcafk:
+    build: .
+    restart: unless-stopped        # restarts after a crash (exit 1) or a reboot, not after `docker compose stop`
+    env_file: .env                 # TELEGRAM_BOT_TOKEN, ALLOWED_USER_IDS
+    environment:
+      DATA_DIR: /data
+    volumes:
+      - mcafk-data:/data           # back this volume up (userdata.json + .keysecret together)
+    # mem_limit: 512m               # optional hard memory cap (see README → Resource use)
+    stop_grace_period: 15s         # time to flush queued forwards and save before SIGKILL
+volumes:
+  mcafk-data:

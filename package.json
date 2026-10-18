@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "bun-start": "bun index.js"
+    "bun-start": "bun index.js",
+    "test": "node --test test/*.test.js"
   },
   "dependencies": {
     "grammy": "^1.36.1",
@@ -13,6 +14,6 @@
   },
   "engines": {
     "bun": ">=1.0",
-    "node": ">=18"
+    "node": ">=22"
   }
 }
