@@ -189,8 +189,7 @@ Steps = blocks (0.1–100), seconds = 5–86400. Offline bots skip runs until re
 
 All default to on except auto-sleep.
 
-The same menu also has **👀 Proximity**, **🌍 View distance** and **🕐 Schedule** buttons: tap one, then send the value (`20` / `off`, `8` / `off`, or `22-6` / `off`) as a normal message. (These replace the old `/proximity` and `/schedule` commands.)
-
+The same menu also has **👀 Proximity**, **🌍 View distance** and **🕐 Schedule** buttons: tap one, then send the value (`20` / `off`, `8` / `off`, or `22-6` / `off`) as a normal message.
 `/settings all` (or **⚙️ Settings (All Bots)** in the bot list) applies a toggle to every bot you own at once. 🟡 means the bots currently differ; tapping turns it on for all, and tapping again turns it off for all.
 
 ### `/watch` — player watchlist
