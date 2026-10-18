@@ -1,8 +1,27 @@
 {
   "name": "mcafk",
-  "version": "1.0.0",
-  "description": "McAfk — Telegram bot to connect fake offline players to Minecraft servers",
+  "version": "3.1.0",
+  "description": "McAfk — Telegram bot manager to connect fake offline (cracked-auth) players to Minecraft servers, with chat forwarding, AI replies, auto-resume and load monitoring.",
   "main": "index.js",
+  "private": true,
+  "license": "MIT",
+  "author": "Yazdan Khodaifar",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yazdaninfo/mcafk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yazdaninfo/mcafk/issues"
+  },
+  "homepage": "https://github.com/yazdaninfo/mcafk#readme",
+  "keywords": [
+    "minecraft",
+    "telegram",
+    "telegram-bot",
+    "mineflayer",
+    "afk-bot",
+    "grammy"
+  ],
   "scripts": {
     "start": "node index.js",
     "bun-start": "bun index.js",
@@ -10,10 +29,11 @@
   },
   "dependencies": {
     "grammy": "^1.36.1",
-    "mineflayer": "^4.23.0"
+    "mineflayer": "^4.23.0",
+    "minecraft-protocol": "^1.47.0"
   },
   "engines": {
-    "bun": ">=1.0",
-    "node": ">=22"
+    "node": ">=22",
+    "bun": ">=1.0"
   }
 }
