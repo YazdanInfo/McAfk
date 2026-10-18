@@ -414,15 +414,6 @@ The files are split by feature, in the order they load. They share one namespace
 
 ---
 
-## Warning
-
-**For educational purposes only.**
-
-- Do not use this on servers you don't own or have permission to test on.
-- Using this may violate a server's Terms of Service and risk a ban. Check the relevant TOS before using.
-
----
-
 ## Access control
 
 Set `ALLOWED_USER_IDS` (comma-separated Telegram user IDs, see `.env.example`). Everyone else gets one polite "private" reply and cannot press buttons; strangers in groups are ignored.
@@ -479,7 +470,7 @@ What it does *not* change: physics still ticks 20 times a second per bot and pac
 
 Optional hard cap on Node's heap, useful on a small VPS: `NODE_OPTIONS=--max-old-space-size=256` (make it larger if you run many bots; if the heap legitimately needs more, the process is killed and restarted, which the restart notice then reports). In Docker, `mem_limit` in `docker-compose.yml` does the same job from outside.
 
-##How to use a bigger machine
+## on a bigger machine
 
 0. **Read RAM per bot in `/status`.** The 🧠 Memory row ends with `≈N MB per online bot (M online)`: the process RSS divided by the bots online in the whole manager (all users). It includes the manager's own base cost, so it overstates what one more bot costs, most when few bots are online. For the marginal cost compare two readings: `(RSS at N2 − RSS at N1) / (N2 − N1)`, taken after the bots have been up for ten minutes.
 
@@ -522,6 +513,15 @@ The same health check also touches `DATA_DIR/.health` every minute, with or with
 ## Backups
 
 `userdata.json` is saved atomically and a copy of the previous file is kept as `userdata.json.bak1`…`bak3` (at most one per hour). If `userdata.json` ever becomes unreadable at startup, the newest valid backup is restored automatically and the broken file is kept as `userdata.json.corrupt-<time>`. To roll back by hand: stop the bot and `cp userdata.json.bak1 userdata.json`. Back up `.keysecret` together with them (it never changes).
+
+---
+
+## Warning
+
+**For educational purposes only.**
+
+- Do not use this on servers you don't own or have permission to test on.
+- Using this may violate a server's Terms of Service and risk a ban. Check the relevant TOS before using.
 
 ---
 
