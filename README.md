@@ -423,31 +423,6 @@ The files are split by feature, in the order they load. They share one namespace
 
 ---
 
-## License
-
-MIT — see [LICENSE](LICENSE).
-
-
-## Upgrading from the original single-file version
-
-The original `index.js` (data format version 2) keeps working as a data source: bot ids are computed the same way, `userdata.json` is read and rewritten in the current format (version 5), and old forwards become active forwards (covered by `test/upstream-migration.test.js`). Things that behave differently, and that you should know about before upgrading:
-
-- **Node 22 or newer** is required (the original accepted 18).
-- **Access is closed by default.** With `ALLOWED_USER_IDS` empty nobody can use the manager; message the bot once to see your numeric ID, put it in `ALLOWED_USER_IDS` and restart. `ALLOW_OPEN_ACCESS=1` restores the old open behaviour.
-- **Bots may not point at this machine or a private network** when they are added (loopback, LAN, link-local, cloud metadata). Set `MC_ALLOW_PRIVATE_HOSTS=1` if the Minecraft server runs on the same VPS or LAN. Bots that are already saved are not re-checked.
-- **Bot limits:** 5 per user and 20 in total by default (`MAX_BOTS_PER_USER`, `MAX_BOTS_TOTAL`, `0` = no limit). Users who already have more keep their bots.
-- **Adding a bot with the same name, host and port as someone else's bot is refused** (it used to replace that bot and take it over). Host names are stored in lower case.
-- **Bots that were running come back by themselves after a restart** (`AUTO_RESUME=0` keeps the old "paused until Reconnect"). A file written by the original version records every bot as paused after a clean stop, so the first restart after upgrading still pauses all of them.
-- **`/forward` is now a manager** in a private chat; in a group it adds that group right away. `/unforward` and `/forwards` were merged into it and only answer with a pointer. `/proximity`, `/schedule` and `/gamemode` were merged into `/settings` and `/where` the same way.
-- **New defaults:** bots ask the server for a 4-chunk view distance (`MC_VIEW_DISTANCE`), "server shows offline" (Aternos-style lobby) is detected before and after joining, and `userdata.json` is written with mode 0600 next to its backups.
-
-See `CHANGELOG.md` for the full list.
-
-## Optional: stuck alert
-
-`/settings` → **🧊 Stuck alert** (off by default). Set a number of minutes (5–720): if the bot has not moved horizontally **and** heard no chat, join or leave for that long, you get one alert with a **Reconnect now** button. Useful when a host keeps a bot in limbo. A bot you park on purpose in a quiet world will trigger it, so leave it off for those.
-
-
 ## Access control
 
 Set `ALLOWED_USER_IDS` (comma-separated Telegram user IDs, see `.env.example`). Everyone else gets one polite "private" reply and cannot press buttons; strangers in groups are ignored.
@@ -504,11 +479,7 @@ What it does *not* change: physics still ticks 20 times a second per bot and pac
 
 Optional hard cap on Node's heap, useful on a small VPS: `NODE_OPTIONS=--max-old-space-size=256` (make it larger if you run many bots; if the heap legitimately needs more, the process is killed and restarted, which the restart notice then reports). In Docker, `mem_limit` in `docker-compose.yml` does the same job from outside.
 
-## Sizing for a bigger VPS (e.g. 16 GB RAM / 4 vCPU)
-
-All bots run inside **one Node process, and JavaScript executes on one core**. A 4 vCPU machine therefore does not run four times as many bots in one manager: the first wall is usually that single core, not RAM. `/status` has a **📈 Load** row for exactly this: the manager's CPU share (100% = one full core) and event-loop lag, sampled once a minute. When CPU stays at 85% or more, or lag p99 at 250 ms or more, for three samples in a row, `/status` says *one core is the limit*, the console logs it once (and again when it recovers), and **every user who has bots gets one Telegram message** (sent to the chat of their first bot, like the unclean-restart notice). That message is sent once per saturated spell and at most once every 30 minutes, so a load that flaps around the threshold cannot spam; it is silent during the user's `/quiet` hours. Those thresholds are judgement calls, not measured values.
-
-How to use a bigger machine:
+##How to use a bigger machine
 
 0. **Read RAM per bot in `/status`.** The 🧠 Memory row ends with `≈N MB per online bot (M online)`: the process RSS divided by the bots online in the whole manager (all users). It includes the manager's own base cost, so it overstates what one more bot costs, most when few bots are online. For the marginal cost compare two readings: `(RSS at N2 − RSS at N1) / (N2 − N1)`, taken after the bots have been up for ten minutes.
 
@@ -516,8 +487,6 @@ How to use a bigger machine:
 2. **Keep `MC_VIEW_DISTANCE` at 4.** More RAM does not make a larger radius useful for an AFK bot, and it costs RAM and CPU. Use **/settings → 🌍 View distance** for the one server that needs more.
 3. **Past one core: more managers, not more threads.** A second manager needs its own Telegram bot token (a second bot from @BotFather; one token can be polled by one process only) and its own `DATA_DIR`. `deploy/mcafk@.service` is a systemd template for that. Instances share nothing, including the join queue, so two managers joining the same Minecraft server can trip its connection throttle; the throttle retry handles that quietly. Splitting one manager's bots over worker threads is possible in principle but would be a large rewrite and is not done.
 4. **Memory guard.** `deploy/mcafk.service` sets `MemoryHigh=10G` / `MemoryMax=12G` for a 16 GB host (lower them if a Minecraft server shares the machine). Leave `NODE_OPTIONS=--max-old-space-size` unset on a big machine.
-
-Ubuntu 24.04's own `nodejs` package is Node 18, which is below the required 22; install Node 22 from NodeSource (the commands are at the top of `deploy/mcafk.service`). `UV_THREADPOOL_SIZE=8` in the unit enlarges libuv's thread pool (DNS, zlib, file I/O); that is a precaution, not a measured gain.
 
 ## Schedule loop
 
@@ -553,3 +522,12 @@ The same health check also touches `DATA_DIR/.health` every minute, with or with
 ## Backups
 
 `userdata.json` is saved atomically and a copy of the previous file is kept as `userdata.json.bak1`…`bak3` (at most one per hour). If `userdata.json` ever becomes unreadable at startup, the newest valid backup is restored automatically and the broken file is kept as `userdata.json.corrupt-<time>`. To roll back by hand: stop the bot and `cp userdata.json.bak1 userdata.json`. Back up `.keysecret` together with them (it never changes).
+
+---
+
+
+## License
+
+MIT — see [LICENSE](LICENSE).
+
+---
