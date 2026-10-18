@@ -80,7 +80,7 @@ A Node.js Telegram bot that connects offline (cracked-auth) player bots to Minec
 | Requirement | Version |
 |---|---|
 | Node.js | ≥ 22 |
-| Bun | ≥ 1.0 |
+| Bun (if used) | ≥ 1.0 |
 | npm | ≥ 9 |
 
 ---
