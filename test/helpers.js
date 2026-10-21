@@ -10,6 +10,7 @@ const STUBS = {
   grammy: path.join(__dirname, 'stubs', 'grammy.js'),
   mineflayer: path.join(__dirname, 'stubs', 'mineflayer.js'),
   'minecraft-protocol': path.join(__dirname, 'stubs', 'minecraft-protocol.js'),
+  dotenv: path.join(__dirname, 'stubs', 'dotenv.js'),
 };
 
 const originalResolve = Module._resolveFilename;
