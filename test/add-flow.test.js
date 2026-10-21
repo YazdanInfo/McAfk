@@ -5,6 +5,14 @@ const { test, describe, beforeEach, afterEach, mock } = require('node:test');
 const assert = require('node:assert/strict');
 const { loadApp } = require('./helpers');
 
+// Fixture hosts (mc.example.com, two.example.com, ...) don't exist, so a real DNS lookup
+// is at the mercy of whatever network this runs on: some resolvers (notably several mobile
+// carriers) answer an unknown name with a private/CGNAT address instead of NXDOMAIN, which
+// checkHostAllowed then correctly refuses — failing these tests for a reason that has nothing
+// to do with limits or ownership. Stub it to a known public address so they're deterministic
+// regardless of network. (Same pattern as test/hosts.test.js.)
+const stubPublicDns = app => { app.hostResolver.lookupAll = async () => ['93.184.216.34']; };
+
 describe('adding a bot respects the limits', () => {
   let t;
   let answers;
@@ -36,6 +44,7 @@ describe('adding a bot respects the limits', () => {
 
   test('under the limit the bot is added', async () => {
     t = loadApp({ MAX_BOTS_PER_USER: '2' });
+    stubPublicDns(t.app);
     await press('add_bot');
     await type('Steve mc.example.com 25565');
     assert.equal(owned().length, 1);
@@ -43,6 +52,7 @@ describe('adding a bot respects the limits', () => {
 
   test('at the limit the Add button says so and does not ask for details', async () => {
     t = loadApp({ MAX_BOTS_PER_USER: '1' });
+    stubPublicDns(t.app);
     t.addBot('One');
     await press('add_bot');
     assert.match(answers[0], /limit/i);
@@ -52,6 +62,7 @@ describe('adding a bot respects the limits', () => {
 
   test('the text step checks again (limits can fill up between the button and the message)', async () => {
     t = loadApp({ MAX_BOTS_PER_USER: '2' });
+    stubPublicDns(t.app);
     await press('add_bot');
     t.addBot('One');
     t.addBot('Two', { host: 'two.example.com' });
@@ -62,6 +73,7 @@ describe('adding a bot respects the limits', () => {
 
   test('the global limit stops everyone, at the button and at the text step', async () => {
     t = loadApp({ MAX_BOTS_PER_USER: '0', MAX_BOTS_TOTAL: '1' });
+    stubPublicDns(t.app);
     await press('add_bot'); // nobody has a bot yet: allowed
     t.addBot('Other', { userId: 99, chatId: 990 });
     await type('Steve mc.example.com 25565');
@@ -81,6 +93,7 @@ describe('adding over someone else\'s bot', () => {
 
   test('the same name, host and port owned by another user is refused and left untouched', async () => {
     t = loadApp();
+    stubPublicDns(t.app);
     const theirs = t.addBot('Steve', { host: 'mc.example.com', userId: 99, chatId: 990,
       settings: { aiPersona: 'secret persona', viewDistance: 9 } });
     theirs.autoReplies.push({ trigger: 'hi', response: 'hello', cooldownSec: 5, lastFiredAt: 0 });
