@@ -28,6 +28,7 @@
     "test": "node --test test/*.test.js"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
     "grammy": "^1.36.1",
     "mineflayer": "^4.23.0",
     "minecraft-protocol": "^1.47.0"
