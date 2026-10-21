@@ -104,7 +104,7 @@ npm install
 Or install manually:
 
 ```shell
-npm install grammy && npm install mineflayer
+npm install grammy mineflayer minecraft-protocol dotenv
 ```
 
 ### 3. Create a Telegram bot
@@ -115,11 +115,10 @@ npm install grammy && npm install mineflayer
 
 ### 4. Set the environment variable
 
-```bash
-export TELEGRAM_BOT_TOKEN=your_token_here
+ ```bash
+cp .env.example .env
 ```
-
-Or create a `.env` file and load it with your preferred tool — the bot reads `process.env.TELEGRAM_BOT_TOKEN` at startup.
+and set the values 
 
 Also set `ALLOWED_USER_IDS` (your numeric Telegram ID). **With it empty the manager is closed to everyone** (see [Access control](#access-control)). Not sure of your ID? Start the bot, message it once: it replies with your ID.
 
