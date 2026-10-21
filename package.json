@@ -1,6 +1,6 @@
 {
   "name": "mcafk",
-  "version": "3.2.0",
+  "version": "3.1.1",
   "description": "McAfk — Telegram bot manager to connect fake offline (cracked-auth) players to Minecraft servers, with chat forwarding, AI replies, auto-resume and load monitoring.",
   "main": "index.js",
   "private": true,
