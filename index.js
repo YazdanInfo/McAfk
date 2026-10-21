@@ -5,6 +5,12 @@
 //   → ai-keys → reports → forward → watch-quiet → handlers → boot
 // This file only loads them in that order and, under MCAFK_TEST=1, exports the internals for test/ (otherwise it starts the bot).
 
+// Must run before src/config (and everything after it) reads process.env.
+// Loads .env from the current working directory; a no-op if the file is missing.
+// Real environment variables (Docker env_file, systemd EnvironmentFile, your shell)
+// are never overwritten — dotenv only fills in gaps, same as --env-file did.
+require('dotenv').config();
+
 require('./src/config');
 require('./src/state');
 require('./src/util');
